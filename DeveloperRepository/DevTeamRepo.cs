@@ -64,20 +64,36 @@ namespace DeveloperRepository
             bool removedTeam = _teamDirectory.Remove(currentTeam);
             return removedTeam;
         }
-        //public bool AddMemberToTeam(int teamID, List<Developer> newMember)
-        //{
-        //    DevTeam team = UpdateExistingTeam(teamID, Developer member);
 
-        //    if (team != null)
-        //    {
-        //        //team.TeamMembers = newMember.Name;
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
+        //Helper Methods
+        public bool AddMemberToTeam(int teamID, Developer newMember)
+        {
+            DevTeam team = GetTeamByID(teamID);
 
-        //}
+            if (team != null)
+            {
+                team.TeamMembers.Add(newMember);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        public bool RemoveMemberFromTeam(int teamID, Developer oldMember)
+        {
+            DevTeam team = GetTeamByID(teamID);
+
+            if(team != null)
+            {
+                team.TeamMembers.Remove(oldMember);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

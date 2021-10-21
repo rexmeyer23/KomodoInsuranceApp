@@ -40,7 +40,9 @@ namespace KomodoConsoleApp
                         "2. Find Team by ID\n" +
                         "3. Add Team\n" +
                         "4. Update a Team\n" +
-                        "5. Remove a Team\n");
+                        "5. Add Developer to a Team\n" +
+                        "6. Remove Developer From a Team\n" +
+                        "7. Remove a Team\n");
                     string userInput1 = Console.ReadLine();
                     switch (userInput1)
                     {
@@ -58,6 +60,12 @@ namespace KomodoConsoleApp
                             UpdateTeam();
                             break;
                         case "5":
+                            AddDeveloperToTeam();
+                            break;
+                        case "6":
+                            RemoveDeveloperFromTeam();
+                            break;
+                        case "7":
                             RemoveTeam();
                             break;
                     }
@@ -69,9 +77,8 @@ namespace KomodoConsoleApp
                         "2. Find a Developer by ID\n" +
                         "3. Add a Developer\n" +
                         "4. Update a Developer\n" +
-                        "5. Remove a Developer\n" +
-                        "6. Add Developer to a Team\n" +
-                        "7. See Developers With No PluralSight Access\n");
+                        "5. Remove a Developer from Directory\n" +
+                        "6. See Developers With No PluralSight Access\n");
                     string userInput2 = Console.ReadLine();
                     switch (userInput2)
                     {
@@ -93,9 +100,6 @@ namespace KomodoConsoleApp
                             DeleteDeveloper();
                             break;
                         case "6":
-                            AddDeveloperToTeam();
-                            break;
-                        case "7":
                             PluralSightAccess();
                             break;
                     }
@@ -435,6 +439,116 @@ namespace KomodoConsoleApp
 
         }
         //team options case 5
+        private void AddDeveloperToTeam()
+        {
+            Console.Clear();
+            ShowAllTeams();
+            Console.Write("Please enter the ID of the team you would like to display: ");
+            int teamID;
+            bool parseSuccessful = int.TryParse(Console.ReadLine(), out teamID);
+            if (parseSuccessful != true)
+            {
+                Console.WriteLine("Please enter a valid ID number.");
+            }
+            Console.Clear();
+            DevTeam team = _devTeamRepo.GetTeamByID(teamID);
+            DisplayTeams(team);
+            bool addingMember = true;
+            while (addingMember)
+            {
+                Console.WriteLine("Do you want to add a developer to this team?\n" +
+                    "YES or NO");
+                string input = Console.ReadLine().ToUpper();
+                if (input == "YES")
+                {
+                    Console.Clear();
+
+                    ShowAllDevelopers();
+                    Console.Write("Enter the ID of the developer you want to add: ");
+                    int developerID;
+                    bool parsedSuccessful = int.TryParse(Console.ReadLine(), out developerID);
+                    if (parsedSuccessful != true)
+                    {
+                        Console.WriteLine("Please enter a valid ID number.");
+                    }
+                    Developer member = _developerRepo.RetrieveDeveloperByID(developerID);
+                    _devTeamRepo.AddMemberToTeam(teamID, member);
+                    DisplayTeams(team);
+                    Console.ReadKey();
+                    Console.WriteLine("Developer successfully added!");
+                    Console.ReadKey();
+                    break;
+                }
+                else if (input == "NO")
+                {
+                    Console.WriteLine("Press any key to exit...");
+                    Console.ReadKey();
+                    addingMember = false;
+                }
+                else
+                {
+                    Console.WriteLine("Please enter YES or NO");
+                }
+                Console.ReadKey();
+            }
+
+        }
+        //teamoptions case 6
+        private void RemoveDeveloperFromTeam()
+        {
+            Console.Clear();
+            ShowAllTeams();
+            Console.Write("Please enter the ID of the team you would like to display: ");
+            int teamID;
+            bool parseSuccessful = int.TryParse(Console.ReadLine(), out teamID);
+            if (parseSuccessful != true)
+            {
+                Console.WriteLine("Please enter a valid ID number.");
+            }
+            Console.Clear();
+            DevTeam team = _devTeamRepo.GetTeamByID(teamID);
+            DisplayTeams(team);
+            bool addingMember = true;
+            while (addingMember)
+            {
+                Console.WriteLine("Do you want to remove a developer from this team?\n" +
+                    "YES or NO");
+                string input = Console.ReadLine().ToUpper();
+                if (input == "YES")
+                {
+                    Console.Clear();
+
+                    ShowAllDevelopers();
+                    Console.Write("Enter the ID of the developer you want to remove: ");
+                    int developerID;
+                    bool parsedSuccessful = int.TryParse(Console.ReadLine(), out developerID);
+                    if (parsedSuccessful != true)
+                    {
+                        Console.WriteLine("Please enter a valid ID number.");
+                    }
+                    Developer member = _developerRepo.RetrieveDeveloperByID(developerID);
+                    _devTeamRepo.RemoveMemberFromTeam(teamID, member);
+                    DisplayTeams(team);
+                    Console.ReadKey();
+                    Console.WriteLine("Developer successfully removed!");
+                    Console.ReadKey();
+                    break;
+                }
+                else if (input == "NO")
+                {
+                    Console.WriteLine("Press any key to exit...");
+                    Console.ReadKey();
+                    addingMember = false;
+                }
+                else
+                {
+                    Console.WriteLine("Please enter YES or NO");
+                }
+                Console.ReadKey();
+            }
+
+        }
+        //team options case 7
         private void RemoveTeam()
         {
             Console.Write("Please enter the ID number of the team you want to delete: ");
@@ -473,65 +587,7 @@ namespace KomodoConsoleApp
             ShowAllTeams();
 
         }
-        private void AddDeveloperToTeam()
-        {
-            Console.Clear();
-            ShowAllTeams();
-            Console.Write("Please enter the ID of the team you would like to display: ");
-            int teamID;
-            bool parseSuccessful = int.TryParse(Console.ReadLine(), out teamID);
-            if (parseSuccessful != true)
-            {
-                Console.WriteLine("Please enter a valid ID number.");
-            }
-            Console.Clear();
-            DevTeam team = _devTeamRepo.GetTeamByID(teamID);
-            DisplayTeams(team);
-            bool addingMember = true;
-            while (addingMember)
-            {
-                Console.WriteLine("Do you want to add a member to this team?\n" +
-                    "YES or NO");
-                string input = Console.ReadLine().ToUpper();
-                if (input == "YES")
-                {
-                    Console.Clear();
 
-                    List<DevTeam> showTeams = _devTeamRepo.ListTeams();
-                    ShowAllDevelopers();
-                    Console.Write("Enter the ID of the developer you want to add: ");
-                    int developerID;
-                    bool parsedSuccessful = int.TryParse(Console.ReadLine(), out developerID);
-                    if (parsedSuccessful != true)
-                    {
-                        Console.WriteLine("Please enter a valid ID number.");
-                    }
-                    Developer member = _developerRepo.RetrieveDeveloperByID(developerID);
-
-                    {
-                        Console.WriteLine($"Developer Team: {team.TeamName}\n" +
-                            $"Developer Team ID: {teamID}\n" +
-                            $"Developer Name: {member.Name}\n" +
-                            $"Developer ID: {developerID}\n");
-                        Console.ReadKey();
-                        Console.WriteLine("Member has been successfully added.");
-
-                        //_devTeamRepo.AddMemberToTeam(teamID);
-                    }
-                }
-                else if (input == "NO")
-                {
-                    Console.WriteLine("Press any key to exit...");
-                    Console.ReadKey();
-                    addingMember = false;
-                }
-                else
-                {
-                    Console.WriteLine("Please enter YES or NO");
-                }
-                Console.ReadKey();
-            }
-
-        }
     }
 }
+

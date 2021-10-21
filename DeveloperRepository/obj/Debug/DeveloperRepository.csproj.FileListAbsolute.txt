@@ -1,0 +1,9 @@
+C:\Users\Rex\Desktop\KomodoApp\KomodoConsoleApp\DeveloperRepository\bin\Debug\DeveloperRepository.dll
+C:\Users\Rex\Desktop\KomodoApp\KomodoConsoleApp\DeveloperRepository\bin\Debug\DeveloperRepository.pdb
+C:\Users\Rex\Desktop\KomodoApp\KomodoConsoleApp\DeveloperRepository\bin\Debug\DeveloperPOCO.dll
+C:\Users\Rex\Desktop\KomodoApp\KomodoConsoleApp\DeveloperRepository\bin\Debug\DeveloperPOCO.pdb
+C:\Users\Rex\Desktop\KomodoApp\KomodoConsoleApp\DeveloperRepository\obj\Debug\DeveloperRepository.csproj.AssemblyReference.cache
+C:\Users\Rex\Desktop\KomodoApp\KomodoConsoleApp\DeveloperRepository\obj\Debug\DeveloperRepository.csproj.CoreCompileInputs.cache
+C:\Users\Rex\Desktop\KomodoApp\KomodoConsoleApp\DeveloperRepository\obj\Debug\DeveloperRepository.csproj.CopyComplete
+C:\Users\Rex\Desktop\KomodoApp\KomodoConsoleApp\DeveloperRepository\obj\Debug\DeveloperRepository.dll
+C:\Users\Rex\Desktop\KomodoApp\KomodoConsoleApp\DeveloperRepository\obj\Debug\DeveloperRepository.pdb
