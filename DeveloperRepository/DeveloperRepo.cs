@@ -26,29 +26,7 @@ namespace DeveloperRepository
         {
             return _developerDirectory;
         }
-        public Developer RetrieveDeveloperByID(int idNum)
-        {
-            foreach (Developer developer in _developerDirectory)
-            {
-                if (developer.ID == idNum)
-                {
-                    return developer;
-                }
-            }
-            return null;
-        }
-        public List<Developer> DeveloperPluralSight()
-        {
-            List<Developer> developerLicense = new List<Developer>();
-            foreach (Developer developer in _developerDirectory)
-            {
-                if (developer.PluralSight == false)
-                {
-                    developerLicense.Add(developer);
-                }
-            }
-            return developerLicense;
-        }
+        
         //Update
         public bool UpdateDeveloperProp(int originalDeveloper, Developer newDeveloper)
         {
@@ -72,6 +50,30 @@ namespace DeveloperRepository
         {
             bool removedDeveloper = _developerDirectory.Remove(currentDeveloper);
             return removedDeveloper;
+        }
+        //Helper
+        public Developer RetrieveDeveloperByID(int idNum)
+        {
+            foreach (Developer developer in _developerDirectory)
+            {
+                if (developer.ID == idNum)
+                {
+                    return developer;
+                }
+            }
+            return null;
+        }
+        public List<Developer> DeveloperPluralSight()
+        {
+            List<Developer> developerLicense = new List<Developer>();
+            foreach (Developer developer in _developerDirectory)
+            {
+                if (developer.PluralSight == false)
+                {
+                    developerLicense.Add(developer);
+                }
+            }
+            return developerLicense;
         }
     }
 }
